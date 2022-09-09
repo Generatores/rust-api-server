@@ -1,16 +1,24 @@
 use actix_web::{
-  get,
-  post,
-  put,
-  error::ResponseError,
-  web::Path,
-  web::Json,
-  web::Data,
-  HttpResponse,
-  http::{header::ContentType, StatusCode}
+    error::ResponseError,
+    get,
+    http::{header::ContentType, StatusCode},
+    post, put,
+    web::Data,
+    web::Json,
+    web::Path,
+    HttpResponse,
 };
+use derive_more::Display;
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize)]
+struct Response {
+    results: String,
+}
 
 #[get("/data")]
-pub async fn get_datas() -> Json<String> {
-  return Json("endpoint reached".to_string());
+pub async fn get_datas() -> Json<Response> {
+    return Json(Response {
+        results: "endpoint reached".to_string(),
+    });
 }

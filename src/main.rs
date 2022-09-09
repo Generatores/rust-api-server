@@ -1,25 +1,20 @@
 mod routes;
 
-use routes::data_routes:: {
-    get_datas
-};
+use routes::data_routes::get_datas;
 
-
-use actix_web::{HttpServer, App, web::Data,middleware::Logger};
+use actix_web::{middleware::Logger, web::Data, App, HttpServer};
 
 #[actix_web::main]
-async fn main() -> std::io::Result<()>{
+async fn main() -> std::io::Result<()> {
     std::env::set_var("RUST_LOG", "debug");
     std::env::set_var("RUST_BACKTRACE", "1");
     env_logger::init();
 
     HttpServer::new(move || {
         let logger = Logger::default();
-        App::new()
-        .wrap(logger)
-        .service(get_datas)
+        App::new().wrap(logger).service(get_datas)
     })
-    .bind(("127.0.0.1", 80))?
+    .bind(("127.0.0.1", 3030))?
     .run()
     .await
 }
