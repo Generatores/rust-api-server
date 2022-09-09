@@ -18,3 +18,4 @@ strum_macros = "^0.24"
 strum = {version = "^0.24", features = ["derive"]}
 derive_more = "^0.99"
 actix-cors = "0.6.2"
+dotenv = "0.15.0"

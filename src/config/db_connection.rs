@@ -4,8 +4,6 @@ use dotenv::dotenv;
 
 use mongodb::{
     bson::{doc, extjson::de::Error, oid::ObjectId},
-    options::{ClientOptions, ResolverConfig},
-    results::InsertOneResult,
     Client, Collection,
 };
 
