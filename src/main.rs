@@ -3,7 +3,7 @@ pub mod models;
 mod routes;
 
 use config::db_connection::MongoRepo;
-use routes::data_routes::get_data;
+use routes::data_routes::{get_all_data, get_data};
 
 use actix_web::{middleware::Logger, web::Data, App, HttpServer};
 
@@ -22,6 +22,7 @@ async fn main() -> std::io::Result<()> {
             .app_data(db_data.clone())
             .wrap(logger)
             .service(get_data)
+            .service(get_all_data)
     })
     .bind(("127.0.0.1", 3030))?
     .run()

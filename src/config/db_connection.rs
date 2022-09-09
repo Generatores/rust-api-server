@@ -1,9 +1,11 @@
 use std::env;
 extern crate dotenv;
 use dotenv::dotenv;
+use futures::stream::TryStreamExt;
 
 use mongodb::{
     bson::{doc, extjson::de::Error, oid::ObjectId},
+    options::FindOptions,
     Client, Collection,
 };
 
@@ -38,5 +40,24 @@ impl MongoRepo {
             .ok()
             .expect("Error getting user's detail");
         Ok(function_model.unwrap())
+    }
+
+    pub async fn get_all_data(&self) -> Result<Vec<Data>, Error> {
+        let mut cursors = self
+            .col
+            .find(None, None)
+            .await
+            .ok()
+            .expect("Error getting list of datas");
+        let mut datas: Vec<Data> = Vec::new();
+        while let Some(data) = cursors
+            .try_next()
+            .await
+            .ok()
+            .expect("Error mapping through cursor")
+        {
+            datas.push(data)
+        }
+        Ok(datas)
     }
 }

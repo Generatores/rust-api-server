@@ -18,3 +18,12 @@ pub async fn get_data(db: Data<MongoRepo>, path: Path<String>) -> HttpResponse {
         Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
     }
 }
+
+#[get("/data")]
+pub async fn get_all_data(db: Data<MongoRepo>) -> HttpResponse {
+    let datas = db.get_all_data().await;
+    match datas {
+        Ok(datas) => HttpResponse::Ok().json(datas),
+        Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
+    }
+}

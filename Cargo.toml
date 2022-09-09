@@ -19,3 +19,5 @@ strum = {version = "^0.24", features = ["derive"]}
 derive_more = "^0.99"
 actix-cors = "0.6.2"
 dotenv = "0.15.0"
+futures-util = "0.3.24"
+futures = "0.3.24"
