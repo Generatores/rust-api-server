@@ -6,7 +6,7 @@ use actix_web::{
     web::Data,
     web::Json,
     web::Path,
-    HttpResponse,
+    HttpResponse, Responder, Result,
 };
 use derive_more::Display;
 use serde::{Deserialize, Serialize};
@@ -17,8 +17,10 @@ struct Response {
 }
 
 #[get("/data")]
-pub async fn get_datas() -> Json<Response> {
-    return Json(Response {
-        results: "endpoint reached".to_string(),
-    });
+pub async fn get_datas() -> Result<impl Responder> {
+    let my_response_object = Response {
+        results: "endpoint reached...".to_string(),
+    };
+
+    return Ok(Json(my_response_object));
 }
